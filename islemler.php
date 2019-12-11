@@ -187,16 +187,16 @@ class chat{
 	}
 	
 	function istekler_dropdown($array){
-		
+		$sonuc = "";
 		foreach($array as $val):
 		
-		echo ' <a class="dropdown-item" href="#">'.$val.' 
+		$sonuc .= ' <a class="dropdown-item" href="#">'.$val.' 
 		<div style="display: inline-block; float:right;"><span class="btn btn-sm btn-primary">&#x2713;</span> <span class="btn btn-sm btn-danger">X</span>
 		</div>
 	  </a>';
 		
 		endforeach;
-		
+		return $sonuc;
 	}
 	
 }
@@ -231,6 +231,29 @@ break;
 case "csil":
 
 setcookie("kullaniciad","",time()-1);
+
+break;
+
+case "istekayarlarısayı":
+	
+	$sonuc = array();
+
+	$id = $_COOKIE['kullaniciid'];
+	$islemler = new chat;
+	$islemler->bilgileri_al($db);
+	$islemler->istekleri_al($db,$id);
+
+	$frqcount = count($islemler->istekler["arkadas"]);
+	
+	$sonuc["sayi"] = $frqcount;
+
+	$islemler->arkadas_istek_isimleri($db);
+	
+	$sonuc["dropdown"] = $islemler->istekler_dropdown($islemler->arkadasistekisimleri);	
+	
+	echo json_encode($sonuc);
+
+
 
 break;
 

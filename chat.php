@@ -6,15 +6,8 @@ include("islemler.php");
 
 	endif;
 	$id = $_COOKIE['kullaniciid'];
+
 	
-	$islemler = new chat;
-	$islemler->bilgileri_al($db);
-	$islemler->istekleri_al($db,$id);
-
-	$frqcount = count($islemler->istekler["arkadas"]);
-
-	$islemler->arkadas_istek_isimleri($db);
-
 ?>
 
 <!doctype html>
@@ -30,11 +23,21 @@ include("islemler.php");
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	<style>
-
-
-	</style>
 	<script type="text/javascript" src="chat.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			setInterval(function(){
+				$.post("islemler.php?islem=istekayarlarısayı",{},function(donen_veri){
+				
+				var veri = $.parseJSON(donen_veri);
+				$('#dropdownistek').html(veri.dropdown);
+				$('#frqcount').html(veri.sayi);
+			});
+			},2000)
+		})
+	
+	</script>
 </head>
 
 <body class="bg-light">
@@ -53,7 +56,7 @@ include("islemler.php");
 					<div class="row border-bottom border-light" >
 						<div class="alert alert-info w-100 text-center mt-4 mr-4"><?php echo $_COOKIE['kullaniciad']; ?> <button class="btn btn-danger btn-sm btn-block mt-2" id="cik">ÇIK</button> </div>
 					<img src="human-icon-png-13.jpg.png" width="50px;" >
-						<span style="display: inline-block; margin:auto;"><span class="text-info"><?php echo $frqcount; ?></span> Arkadaşlık İsteği
+						<span style="display: inline-block; margin:auto;"><span class="text-info" id="frqcount"></span> Arkadaşlık İsteği
 						
 							<!--İsteklerin Görüldüğü Yer-->
 							<div class="dropdown show mr-3" style="display: inline-block;">
@@ -64,9 +67,9 @@ include("islemler.php");
 								
 	
 								
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownistek">
   
-	  <?php $islemler->istekler_dropdown($islemler->arkadasistekisimleri); ?>
+	  
 	  
   </div>
 </div>
