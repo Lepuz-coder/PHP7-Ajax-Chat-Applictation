@@ -58,7 +58,7 @@ border:1px solid #B7B7B7;
   <div class="col-md-12"><input type="button" name="buton" class="btn btn-info mt-2" value="KAYIT" /></div>
 			<div class="col-md-12" id="info"></div>
         </form>
-        
+        <a href="giris.php">Üye misiniz?</a>
      
         </div>
         

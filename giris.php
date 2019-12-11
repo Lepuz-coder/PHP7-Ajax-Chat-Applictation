@@ -44,6 +44,7 @@ border:1px solid #B7B7B7;
   <div class="col-md-12"><input type="button" name="buton" class="btn btn-info mt-2" value="GİRİŞ" /></div>
 			
         </form>
+			<a href="kayit.php">Üye değil misiniz?</a>
         <div class="col-md-12" id="sonuc"></div>
      
         </div>
