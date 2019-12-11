@@ -145,8 +145,9 @@ class chat{
 				
 				if($sonuc["id"] == $_COOKIE['kullaniciid']):
 				
+					if(!empty($sonuc["arkadaslarid"])):
 				$this->arkadasidler = veri_turn_array($sonuc["arkadaslarid"]);
-				
+					endif;
 				endif;
 		
 			endwhile;
@@ -215,7 +216,6 @@ class chat{
 		 var deger = $(this).attr('sectıonId');
 		 var iskelet = $(this).parent().parent();
 		 $.post('islemler.php?islem=arkadasistekkabul',{'isim':deger},function(d){
-				alert(d);
 				iskelet.hide();
 				
 			});
@@ -253,7 +253,7 @@ class chat{
 		$kulad = $_COOKIE['kullaniciid'];
 		$upd = $db->prepare("update istekler set arkadasistekid='$dizin' where id=$kulad");
 		$upd->execute();
-		
+
 		$this->arkadasidler[] = $id;
 				
 		$dizin = implode("-",$this->arkadasidler);
