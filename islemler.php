@@ -128,7 +128,9 @@ class giris{
 
 class chat{
 	
+	public $dbkisiler = array("id"=>array(),"ad"=>array());
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());
+	public $arkadasistekisimleri = array();
 	
 	function bilgileri_al($db,$id){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
@@ -153,7 +155,16 @@ class chat{
 		
 			endforeach;
 		
+		$sec = $db->prepare("select * from kisiler");
+		$sec->execute();
 		
+			while($sonuc = $sec->fetch(PDO::FETCH_ASSOC)):
+		
+				$this->dbkisiler["id"][] = $sonuc["id"];
+				$this->dbkisiler["ad"][] = $sonuc["kullaniciad"];
+		
+			endwhile;
+				
 	}
 	
 }
