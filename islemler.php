@@ -58,6 +58,14 @@ class kayit{
 		$ekle = $db->prepare("insert into kisiler(kullaniciad,sifre,arkadaslarid) VALUES('$kullaniciad','$sifre','$bos')");
 		$ekle->execute();
 		
+		$id = $db->lastInsertId();
+		
+		$ekle = $db->prepare("insert into istekler(kullaniciid,arkadasistekid,yenimesajid) VALUES('$id','$bos','$bos')");
+		$ekle->execute();
+		
+		$ekle = $db->prepare("insert into mesajlar(kullaniciid,mesajkutuları,yazıyorkutuları) VALUES('$id','$bos','$bos')");
+		$ekle->execute();
+		
 		setcookie("kullaniciad",$kullaniciad);
 		
 		
