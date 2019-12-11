@@ -67,6 +67,7 @@ class kayit{
 		$ekle->execute();
 		
 		setcookie("kullaniciad",$kullaniciad);
+		setcookie("kullaniciid",$id);
 		
 		
 	}
@@ -93,6 +94,7 @@ class giris{
 		
 			$sec = $db->prepare("select * from kisiler where kullaniciad='$kulad' and sifre='$sifre'");	
 			$sec->execute();
+			$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
 		
 				if($sec->rowCount() == 0):
 				
@@ -101,8 +103,11 @@ class giris{
 				else :
 		
 				$this->veri["sonuc"] = 1;
+					
+				$id = $sonuc["id"];
 				
 				setcookie('kullaniciad',$kulad);
+				setcookie("kullaniciid",$id);
 			
 				header("Refresh:0");
 		
@@ -114,6 +119,12 @@ class giris{
 		
 	}
 
+	
+}
+
+class chat{
+	
+	
 	
 }
 
