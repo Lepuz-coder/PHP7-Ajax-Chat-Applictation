@@ -8,7 +8,8 @@ include("islemler.php");
 	$id = $_COOKIE['kullaniciid'];
 	
 	$islemler = new chat;
-	$islemler->bilgileri_al($db,$id);
+	$islemler->bilgileri_al($db);
+	$islemler->istekleri_al($db,$id);
 
 	$frqcount = count($islemler->istekler["arkadas"]);
 

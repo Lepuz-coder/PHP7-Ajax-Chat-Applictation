@@ -132,29 +132,8 @@ class chat{
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
 	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
 	
-	function bilgileri_al($db,$id){
+	function bilgileri_al($db){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
-		
-		$sec = $db->prepare("select * from istekler where kullaniciid = $id ");
-		$sec->execute();
-		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
-		
-			$array = veri_turn_array($sonuc['arkadasistekid']);
-				
-			foreach($array as $val):
-		
-				if(!empty($val)):
-				$this->istekler["arkadas"][] = $val;
-				endif;
-			endforeach;
-		
-			$array = veri_turn_array($sonuc['yenimesajid']);
-			
-			foreach($array as $val):
-		
-				$this->istekler["mesaj"][]=$val;
-		
-			endforeach;
 		
 		$sec = $db->prepare("select * from kisiler");
 		$sec->execute();
@@ -165,6 +144,36 @@ class chat{
 		
 			endwhile;
 				
+	}
+	
+	
+	//İstekler javascript ile saniyede 1 çalışacak ve sonuçlar gitmesi gereken yere load edilecek
+	
+	function istekleri_al($db,$id){
+				$sec = $db->prepare("select * from istekler where kullaniciid = $id ");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+			$array = veri_turn_array($sonuc['arkadasistekid']);
+				
+			foreach($array as $val):
+		
+				if(!empty($val)):
+				$this->istekler["arkadas"][] = $val;
+				endif;
+		
+			endforeach;
+		
+			$array = veri_turn_array($sonuc['yenimesajid']);
+			
+			foreach($array as $val):
+		
+				if(!empty($val)):
+				$this->istekler["mesaj"][]=$val;
+				endif;
+		
+			endforeach;
+		
 	}
 	
 	function arkadas_istek_isimleri($db){
