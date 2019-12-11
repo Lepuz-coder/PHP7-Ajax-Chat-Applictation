@@ -11,7 +11,12 @@ $(document).ready(function(){
 					
 					var veri = $.parseJSON(donen_veri);
 					
-					$('#sonuc').html(veri.sonuc);
+					
+					if(veri.sonuc == 1){
+						window.location.reload();
+					}else{
+						$('#sonuc').html(veri.sonuc);
+					}
 					
 				}
 				

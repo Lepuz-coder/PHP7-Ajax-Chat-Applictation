@@ -1,3 +1,11 @@
+<?php
+	if(!isset($_COOKIE['kullaniciad'])):
+
+		header("Location:giris.php");
+
+	endif;
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -15,7 +23,7 @@
 
 
 	</style>
-	
+	<script type="text/javascript" src="chat.js"></script>
 </head>
 
 <body class="bg-light">
@@ -32,7 +40,7 @@
 				<div class="col-5 border-right border-light">
 				
 					<div class="row border-bottom border-light" >
-						<div class="alert alert-info w-100 text-center mt-4 mr-4">Emirhan Durusoy</div>
+						<div class="alert alert-info w-100 text-center mt-4 mr-4"><?php echo $_COOKIE['kullaniciad']; ?> <button class="btn btn-danger btn-sm btn-block mt-2" id="cik">ÇIK</button> </div>
 					<img src="human-icon-png-13.jpg.png" width="50px;" >
 						<span style="display: inline-block; margin:auto;"><span class="text-danger">0</span> Arkadaşlık İsteği</span>
 						

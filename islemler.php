@@ -92,7 +92,7 @@ class giris{
 		
 				else :
 		
-				$this->veri["sonuc"] = '<div class="alert alert-success">Sisteme giriş yapılıyor...</div>';
+				$this->veri["sonuc"] = 1;
 				
 				setcookie('kullaniciad',$kulad);
 			
@@ -133,6 +133,12 @@ case "giris":
 	$array = $giris->veri;
 
 	echo json_encode($array);
+
+break;
+
+case "csil":
+
+setcookie("kullaniciad","",time()-1);
 
 break;
 
