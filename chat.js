@@ -10,14 +10,4 @@ $(document).ready(function(){
 	
 })
 	
-	
-	setInterval(function(){
-		$.post("islemler.php?islem=istekguncelle",{},function(){});
-		$('#frqcount').load("islemler.php?islem=arkadasistekgetir");
-		$('#arkadasistekdropdown').load("islemler.php?islem=dropdownlistegetir");
-		
-		
-	},1000)
-	
-	
 })

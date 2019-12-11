@@ -234,26 +234,6 @@ setcookie("kullaniciad","",time()-1);
 
 break;
 
-case "arkadasistekgetir":
-
-$frqcount = count($islemler->istekler["arkadas"]);
-echo $frqcount;
-
-break;
-
-case "dropdownlistegetir":
-
-$islemler->arkadas_istek_isimleri($db);
-
-$islemler->istekler_dropdown($islemler->arkadasistekisimleri);
-
-break;
-
-case "istekguncelle":
-
-$islemler->istekleri_al($db,$id);
-
-break;
 
 endswitch;
 
