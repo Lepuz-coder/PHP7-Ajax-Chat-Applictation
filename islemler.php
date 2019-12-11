@@ -128,7 +128,7 @@ class giris{
 
 class chat{
 	
-	public $dbkisiler = array("id"=>array(),"ad"=>array());
+	public $dbkisiler = array();
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());
 	public $arkadasistekisimleri = array();
 	
@@ -160,8 +160,7 @@ class chat{
 		
 			while($sonuc = $sec->fetch(PDO::FETCH_ASSOC)):
 		
-				$this->dbkisiler["id"][] = $sonuc["id"];
-				$this->dbkisiler["ad"][] = $sonuc["kullaniciad"];
+				$this->dbkisiler[$sonuc["id"]] = $sonuc["kullaniciad"];
 		
 			endwhile;
 				
