@@ -128,8 +128,8 @@ class giris{
 
 class chat{
 	
-	public $dbkisiler = array();
-	public $istekler = array("arkadas"=>array(),"mesaj"=>array());
+	public $dbkisiler = array();//"12"=>"Emirhan"
+	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
 	public $arkadasistekisimleri = array();
 	
 	function bilgileri_al($db,$id){
@@ -164,6 +164,16 @@ class chat{
 		
 			endwhile;
 				
+	}
+	
+	function arkadas_istek_isimleri($db){
+		
+		foreach($this->istekler["arkadas"] as $val):
+		
+		$this->arkadasistekisimleri[] = $this->dbkisiler[$val];
+		
+		endforeach;
+		
 	}
 	
 }

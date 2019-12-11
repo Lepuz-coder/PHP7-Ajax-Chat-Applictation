@@ -11,7 +11,10 @@ include("islemler.php");
 	$islemler->bilgileri_al($db,$id);
 
 	$frqcount = count($islemler->istekler["arkadas"]);
-	print_r($islemler->dbkisiler);
+
+	$islemler->arkadas_istek_isimleri($db);
+	
+
 ?>
 
 <!doctype html>
