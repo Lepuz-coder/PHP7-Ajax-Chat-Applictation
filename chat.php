@@ -49,13 +49,7 @@ include("islemler.php");
 		
 	
 	</script>
-<script>
-$(document).ready(function(){
-	$('.kabulet').click(function(){
-		alert("w");
-	})
-});	
-</script>
+
 </head>
 
 <body class="bg-light">
@@ -91,7 +85,7 @@ $(document).ready(function(){
 						
 						<div>
 						<div class="row mx-auto" >
-						<div style="overflow-y: auto; height: 70px; width: 100%;">
+						<div style="overflow-y: auto; height: 150px; width: 100%;">
 						<table class="table">
 						  <thead>
 							<tr>
@@ -132,7 +126,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
-				<div class="col-7 mt-5 border-bottom border-light" style="overflow-y: scroll;">
+				<div class="col-7 mt-5 border-bottom border-light" style="overflow-y: scroll; height: 480px;">
 				<!--Mesajların Geleceği Kısım-->
 					<div class="alert alert-success w-100 text-center mx-auto">yazıyor..</div>
 					
@@ -176,5 +170,6 @@ $(document).ready(function(){
 
 </body>
 		
+	
 		
 </html>

@@ -191,15 +191,62 @@ class chat{
 		$i = 1;
 		foreach($array as $val):
 		
-		$sonuc .= '<tr>
-							  <th scope="row">'.$i.'</th>
+		$sonuc .= '			
+							<tr>
+							  <th scope="row" class="isteksatir">'.$i.'</th>
 							  <td>'.$val.'</td>
-							  <td><button class="btn btn-success btn-sm kabulet">&#x2713;</button></td>
-							  <td><button class="btn btn-danger btn-sm">X</button></td>
+							  <td><button class="btn btn-success btn-sm kabulet" sectıonId="'.$val.'">&#x2713;</button></td>
+							  <td><button class="btn btn-danger btn-sm reddet" sectıonId="'.$val.'">X</button></td>
 							</tr>';
 		$i++;
 		endforeach;
+		$sonuc .= "<script>
+				$(document).ready(function(){
+		$('.kabulet').click(function(){
+		 var deger = $(this).attr('sectıonId');
+		 var iskelet = $(this).parent().parent();
+		 $.post('islemler.php?islem=arkadasistekkabul',{'isim':deger},function(d){
+				alert(d);
+				iskelet.hide();
+				
+			});
+		
+		
+				})
+				
+		$('.reddet').click(function(){
+		 var deger = $(this).attr('sectıonId');
+		 alert(deger);
+		
+		
+				})
+			});	
+					</script>";
+		
 		return $sonuc;
+	}
+	
+	function istek_kabul($db){
+		
+		//Kabul edilen istek sonununda posttan alınan verinin isminden id'sini bularak buna göre istekler kısmını ve kullanıcnın arkadaşlar kısmını güncelle
+		self::bilgileri_al($db);
+		self::istekleri_al($db,$_COOKIE['kullaniciid']);
+		$isim = $_POST['isim'];
+		
+		$id = array_search($isim,$this->dbkisiler);
+		
+		$fark = array($id);
+		
+		$array = array_diff($this->istekler["arkadas"],$fark);
+		
+		$dizin = implode("-",$array);
+		
+		$kulad = $_COOKIE['kullaniciid'];
+		$upd = $db->prepare("update istekler set arkadasistekid='$dizin' where id=$kulad");
+		$upd->execute();
+		
+		
+		
 	}
 	
 }
@@ -257,6 +304,13 @@ case "istekayarlarısayı":
 	echo json_encode($sonuc);
 
 
+
+break;
+
+case "arkadasistekkabul":
+
+$islem = new chat;
+$islem->istek_kabul($db);
 
 break;
 
