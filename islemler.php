@@ -143,8 +143,9 @@ class chat{
 				
 			foreach($array as $val):
 		
+				if(!empty($val)):
 				$this->istekler["arkadas"][] = $val;
-		
+				endif;
 			endforeach;
 		
 			$array = veri_turn_array($sonuc['yenimesajid']);
