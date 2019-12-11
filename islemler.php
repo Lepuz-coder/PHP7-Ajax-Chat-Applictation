@@ -128,9 +128,9 @@ class giris{
 
 class chat{
 	
-	public $dbkisiler = array();//"12"=>"Emirhan"
+	public $dbkisiler = array();//"12"=>"Emirhan" id'si ve verisi key val şeklinde tutulur
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
-	public $arkadasistekisimleri = array();
+	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
 	
 	function bilgileri_al($db,$id){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
@@ -171,6 +171,19 @@ class chat{
 		foreach($this->istekler["arkadas"] as $val):
 		
 		$this->arkadasistekisimleri[] = $this->dbkisiler[$val];
+		
+		endforeach;
+		
+	}
+	
+	function istekler_dropdown($array){
+		
+		foreach($array as $val):
+		
+		echo ' <a class="dropdown-item" href="#">'.$val.' 
+		<div style="display: inline-block; float:right;"><span class="btn btn-sm btn-primary">&#x2713;</span> <span class="btn btn-sm btn-danger">X</span>
+		</div>
+	  </a>';
 		
 		endforeach;
 		

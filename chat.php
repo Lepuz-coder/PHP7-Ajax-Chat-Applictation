@@ -13,7 +13,6 @@ include("islemler.php");
 	$frqcount = count($islemler->istekler["arkadas"]);
 
 	$islemler->arkadas_istek_isimleri($db);
-	
 
 ?>
 
@@ -61,15 +60,13 @@ include("islemler.php");
     İstekleri Gör
   </a>
 
+								
+	
+								
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">İsim1 
-		<div style="display: inline-block; float:right;"><span class="btn btn-sm btn-primary">&#x2713;</span> <span class="btn btn-sm btn-danger">X</span>
-		</div>
-	  </a>
-	  <a class="dropdown-item" href="#">İsim2 
-	  <div style="display: inline-block; float:right;"><span class="btn btn-sm btn-primary">&#x2713;</span> <span class="btn btn-sm btn-danger">X</span>
-		</div>
-	  </a>
+  
+	  <?php $islemler->istekler_dropdown($islemler->arkadasistekisimleri); ?>
+	  
   </div>
 </div>
 						
