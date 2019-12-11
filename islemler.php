@@ -188,13 +188,16 @@ class chat{
 	
 	function istekler_dropdown($array){
 		$sonuc = "";
+		$i = 1;
 		foreach($array as $val):
 		
-		$sonuc .= ' <div class="dropdown-item">'.$val.' 
-		<div style="display: inline-block; float:right;"><button class="btn btn-sm btn-primary" sectıonId="add">&#x2713;</button> <button class="btn btn-sm btn-danger" sectıonId="remove">X</button>
-		</div>
-	  </div>';
-		
+		$sonuc .= '<tr>
+							  <th scope="row">'.$i.'</th>
+							  <td>'.$val.'</td>
+							  <td><button class="btn btn-success btn-sm kabulet">&#x2713;</button></td>
+							  <td><button class="btn btn-danger btn-sm">X</button></td>
+							</tr>';
+		$i++;
 		endforeach;
 		return $sonuc;
 	}

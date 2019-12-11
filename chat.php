@@ -49,7 +49,13 @@ include("islemler.php");
 		
 	
 	</script>
-<script type="text/javascript" src="istek.js"></script>
+<script>
+$(document).ready(function(){
+	$('.kabulet').click(function(){
+		alert("w");
+	})
+});	
+</script>
 </head>
 
 <body class="bg-light">
@@ -71,25 +77,37 @@ include("islemler.php");
 						<span style="display: inline-block; margin:auto;"><span class="text-info" id="frqcount"></span> Arkadaşlık İsteği
 						
 							<!--İsteklerin Görüldüğü Yer-->
-							<div class="dropdown show mr-3" style="display: inline-block;">
-  <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<div class="mr-3" style="display: inline-block;">
+  <div class="btn btn-primary ml-2">
     İstekleri Gör
-  </a>
-
-								
-	
-								
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownistek">
-  
-	  
-	  
   </div>
+	
 </div>
-						
-						</span>
+		
+							
 						
 						
 					</div>
+						
+						<div>
+						<div class="row mx-auto" >
+						<div style="overflow-y: auto; height: 70px; width: 100%;">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th colspan="4"></th>
+							</tr>
+						  </thead>
+						  <tbody id="dropdownistek">
+							
+							
+							  
+						  </tbody>
+						</table>
+						</div>
+					</div>
+						</div>
+						
 					<div class="row mx-auto" >
 					<div class="alert alert-warning w-100 text-center mt-4 mr-4">ARKADAŞLAR</div>
 						<div style="overflow-y: auto; height: 350px;">
