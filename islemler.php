@@ -1,7 +1,11 @@
 <?php
 $db = new PDO("mysql::host=localhost;dbname=chatting;charset=utf8","root","");
 
-
+function veri_turn_array($veri){
+	
+	$array = explode('-',$veri);
+	return $array;
+}
 
 class kayit{
 	
@@ -124,12 +128,38 @@ class giris{
 
 class chat{
 	
+	public $istekler = array("arkadas"=>array(),"mesaj"=>array());
 	
+	function bilgileri_al($db,$id){
+		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
+		
+		$sec = $db->prepare("select * from istekler where kullaniciid = $id ");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+			$array = veri_turn_array($sonuc['arkadasistekid']);
+				
+			foreach($array as $val):
+		
+				$this->istekler["arkadas"][] = $val;
+		
+			endforeach;
+		
+			$array = veri_turn_array($sonuc['yenimesajid']);
+			
+			foreach($array as $val):
+		
+				$this->istekler["mesaj"][]=$val;
+		
+			endforeach;
+		
+		
+	}
 	
 }
 
 
-$islem = $_GET['islem'];
+@$islem = $_GET['islem'];
 
 switch($islem):
 
