@@ -1,4 +1,10 @@
+<?php
 
+if(isset($_COOKIE['kullaniciad'])){
+	header("Location:chat.php");
+}
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,7 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
-    
+    <script type="text/javascript" src="giris.js"></script>
 <title>Giriş</title>
 <style>
 	#log {
@@ -30,14 +36,15 @@ border:1px solid #B7B7B7;
         
         
         <div class="col-md-4  mx-auto text-center" id="log">     
-        <form action="" method="post">
+        <form id="kayitForm">
         <div class="col-md-12 border-bottom p-2"><h3>CHAT GİRİŞ</h3></div>
         <div class="col-md-12"><input type="text" name="kulad" class="form-control mt-2" required="required" placeholder="Kullanıcı Adınız" autofocus="autofocus" /></div>
         <div class="col-md-12"><input type="password" name="sifre" class="form-control mt-2" required="required" placeholder="Şifreniz" /></div>
         
-  <div class="col-md-12"><input type="submit" name="buton" class="btn btn-info mt-2" value="GİRİŞ" /></div>
+  <div class="col-md-12"><input type="button" name="buton" class="btn btn-info mt-2" value="GİRİŞ" /></div>
+			
         </form>
-        
+        <div class="col-md-12" id="sonuc"></div>
      
         </div>
         

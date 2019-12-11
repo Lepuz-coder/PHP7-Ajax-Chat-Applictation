@@ -65,6 +65,50 @@ class kayit{
 	
 }
 
+class giris{
+	
+	public $veri = array();
+	
+	function kontrol($db){
+		
+		$kulad = $_POST['kulad'];
+		$sifre = $_POST['sifre'];
+		
+		$kulad = htmlspecialchars(strip_tags($kulad));
+		$sifre = htmlspecialchars(strip_tags($sifre));
+		
+			if(empty($kulad) || empty($sifre)):
+		
+				$this->veri["sonuc"] = '<div class="alert alert-danger">Lütfen boş bırakmayınız</div>';
+		
+			else:
+		
+			$sec = $db->prepare("select * from kisiler where kullaniciad='$kulad' and sifre='$sifre'");	
+			$sec->execute();
+		
+				if($sec->rowCount() == 0):
+				
+				$this->veri["sonuc"] = '<div class="alert alert-danger">Böyle bir kullanıcı bulamadık.</div>';
+		
+				else :
+		
+				$this->veri["sonuc"] = '<div class="alert alert-success">Sisteme giriş yapılıyor...</div>';
+				
+				setcookie('kullaniciad',$kulad);
+			
+				header("Refresh:0");
+		
+				endif;
+		
+		
+			endif;
+		
+		
+	}
+
+	
+}
+
 
 $islem = $_GET['islem'];
 
@@ -80,6 +124,18 @@ case "kayit":
 	echo json_encode($array);
 
 break;
+
+case "giris":
+
+	$giris = new giris;
+	$giris->kontrol($db);
+
+	$array = $giris->veri;
+
+	echo json_encode($array);
+
+break;
+
 
 endswitch;
 
