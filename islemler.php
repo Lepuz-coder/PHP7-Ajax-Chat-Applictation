@@ -131,6 +131,7 @@ class chat{
 	public $dbkisiler = array();//"12"=>"Emirhan" id'si ve verisi key val şeklinde tutulur
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
 	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
+	public $arkadasidler = array();
 	
 	function bilgileri_al($db){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
@@ -141,9 +142,17 @@ class chat{
 			while($sonuc = $sec->fetch(PDO::FETCH_ASSOC)):
 		
 				$this->dbkisiler[$sonuc["id"]] = $sonuc["kullaniciad"];
+				
+				if($sonuc["id"] == $_COOKIE['kullaniciid']):
+				
+				$this->arkadasidler = veri_turn_array($sonuc["arkadaslarid"]);
+				
+				endif;
 		
 			endwhile;
-				
+
+		
+		
 	}
 	
 	
@@ -245,7 +254,12 @@ class chat{
 		$upd = $db->prepare("update istekler set arkadasistekid='$dizin' where id=$kulad");
 		$upd->execute();
 		
+		$this->arkadasidler[] = $id;
+				
+		$dizin = implode("-",$this->arkadasidler);
 		
+		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$kulad");
+		$upd->execute();
 		
 	}
 	
