@@ -190,10 +190,10 @@ class chat{
 		$sonuc = "";
 		foreach($array as $val):
 		
-		$sonuc .= ' <a class="dropdown-item" href="#">'.$val.' 
-		<div style="display: inline-block; float:right;"><span class="btn btn-sm btn-primary">&#x2713;</span> <span class="btn btn-sm btn-danger">X</span>
+		$sonuc .= ' <div class="dropdown-item">'.$val.' 
+		<div style="display: inline-block; float:right;"><button class="btn btn-sm btn-primary" sectıonId="add">&#x2713;</button> <button class="btn btn-sm btn-danger" sectıonId="remove">X</button>
 		</div>
-	  </a>';
+	  </div>';
 		
 		endforeach;
 		return $sonuc;

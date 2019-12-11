@@ -16,6 +16,7 @@ include("islemler.php");
 <meta charset="utf-8">
 <title>Başlıksız Belge</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -23,10 +24,18 @@ include("islemler.php");
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="chat.js"></script>
-	<script>
+<script type="text/javascript" src="chat.js"></script>
+	
+	<script type="text/javascript">
 		
 		$(document).ready(function(){
+			$.post("islemler.php?islem=istekayarlarısayı",{},function(donen_veri){
+				
+				var veri = $.parseJSON(donen_veri);
+				$('#dropdownistek').html(veri.dropdown);
+				$('#frqcount').html(veri.sayi);
+			});
+			
 			setInterval(function(){
 				$.post("islemler.php?islem=istekayarlarısayı",{},function(donen_veri){
 				
@@ -36,8 +45,11 @@ include("islemler.php");
 			});
 			},2000)
 		})
+		
+		
 	
 	</script>
+<script type="text/javascript" src="istek.js"></script>
 </head>
 
 <body class="bg-light">
@@ -145,4 +157,6 @@ include("islemler.php");
 	
 
 </body>
+		
+		
 </html>
