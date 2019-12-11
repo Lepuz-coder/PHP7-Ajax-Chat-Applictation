@@ -9,12 +9,7 @@ include("islemler.php");
 	
 	$islemler = new chat;
 	$islemler->bilgileri_al($db);
-	$islemler->istekleri_al($db,$id);
-
-	$frqcount = count($islemler->istekler["arkadas"]);
-
-	$islemler->arkadas_istek_isimleri($db);
-
+ 	
 ?>
 
 <!doctype html>
@@ -53,7 +48,7 @@ include("islemler.php");
 					<div class="row border-bottom border-light" >
 						<div class="alert alert-info w-100 text-center mt-4 mr-4"><?php echo $_COOKIE['kullaniciad']; ?> <button class="btn btn-danger btn-sm btn-block mt-2" id="cik">ÇIK</button> </div>
 					<img src="human-icon-png-13.jpg.png" width="50px;" >
-						<span style="display: inline-block; margin:auto;"><span class="text-info"><?php echo $frqcount; ?></span> Arkadaşlık İsteği
+						<span style="display: inline-block; margin:auto;"><span class="text-info" id="frqcount"></span> Arkadaşlık İsteği
 						
 							<!--İsteklerin Görüldüğü Yer-->
 							<div class="dropdown show mr-3" style="display: inline-block;">
@@ -64,9 +59,9 @@ include("islemler.php");
 								
 	
 								
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="arkadasistekdropdown">
   
-	  <?php $islemler->istekler_dropdown($islemler->arkadasistekisimleri); ?>
+	   
 	  
   </div>
 </div>
