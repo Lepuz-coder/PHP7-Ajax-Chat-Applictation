@@ -44,6 +44,11 @@ include("islemler.php");
 				$('#frqcount').html(veri.sayi);
 			});
 			},2000)
+			
+			$('#isteklertablosu').hide();
+			$('#isteklerigorbuton').click(function(){
+				$('#isteklertablosu').slideToggle(1000);
+			})
 		})
 		
 		
@@ -72,7 +77,7 @@ include("islemler.php");
 						
 							<!--İsteklerin Görüldüğü Yer-->
 							<div class="mr-3" style="display: inline-block;">
-  <div class="btn btn-primary ml-2">
+  <div class="btn btn-primary ml-2" id="isteklerigorbuton">
     İstekleri Gör
   </div>
 	
@@ -82,10 +87,10 @@ include("islemler.php");
 						
 						
 					</div>
-						
+						<!--Bu Bölümde Arkadaş İstekleri Görülür-->
 						<div>
-						<div class="row mx-auto" >
-						<div style="overflow-y: auto; height: 150px; width: 100%;">
+						<div class="row mx-auto" id="isteklertablosu" >
+						<div style="overflow-y: auto; max-height: 150px; width: 100%;">
 						<table class="table">
 						  <thead>
 							<tr>

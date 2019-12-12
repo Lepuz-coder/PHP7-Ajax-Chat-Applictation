@@ -131,7 +131,7 @@ class chat{
 	public $dbkisiler = array();//"12"=>"Emirhan" id'si ve verisi key val şeklinde tutulur
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
 	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
-	public $arkadasidler = array();
+	public $arkadasidler = array();//Giriş yapan kullanıcının arkadaşlarının id verilerini tutan bir arraydır
 	
 	function bilgileri_al($db){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
