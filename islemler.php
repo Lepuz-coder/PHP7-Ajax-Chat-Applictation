@@ -203,7 +203,7 @@ class chat{
 		
 		$sonuc .= '			
 							<tr>
-							  <th scope="row" class="isteksatir">'.$i.'</th>
+							  <th scope="row" class="isteksatir"></th>
 							  <td>'.$val.'</td>
 							  <td><button class="btn btn-success btn-sm kabulet" sectıonId="'.$val.'">&#x2713;</button></td>
 							  <td><button class="btn btn-danger btn-sm reddet" sectıonId="'.$val.'">X</button></td>
