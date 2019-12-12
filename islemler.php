@@ -219,18 +219,19 @@ class chat{
 				iskelet.hide();
 				
 			});
+			});
+			
 		
-		
-				})
 				
-		$('.reddet').click(function(){
+			$('.reddet').click(function(){
 		 var deger = $(this).attr('sectıonId');
-		 alert(deger);
-		
-		
-				})
-			});	
-					</script>";
+		 var iskelet = $(this).parent().parent();
+		 $.post('islemler.php?islem=arkadasistekreddet',{'isim':deger},function(d){
+				iskelet.hide();				
+			});
+			  });
+				});
+			</script>";
 		
 		return $sonuc;
 	}
@@ -261,6 +262,24 @@ class chat{
 		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$kulad");
 		$upd->execute();
 		
+	}
+	
+	function istek_reddet($db){
+		self::bilgileri_al($db);
+		self::istekleri_al($db,$_COOKIE['kullaniciid']);
+		$isim = $_POST['isim'];
+		
+		$id = array_search($isim,$this->dbkisiler);
+		
+		$fark = array($id);
+		
+		$array = array_diff($this->istekler["arkadas"],$fark);
+		
+		$dizin = implode("-",$array);
+		
+		$kulad = $_COOKIE['kullaniciid'];
+		$upd = $db->prepare("update istekler set arkadasistekid='$dizin' where id=$kulad");
+		$upd->execute();
 	}
 	
 }
@@ -325,6 +344,13 @@ case "arkadasistekkabul":
 
 $islem = new chat;
 $islem->istek_kabul($db);
+
+break;
+
+case "arkadasistekreddet":
+
+$islem = new chat;
+$islem->istek_reddet($db);
 
 break;
 
