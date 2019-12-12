@@ -107,9 +107,9 @@ include("islemler.php");
 					</div>
 						</div>
 						
-					<div class="row mx-auto" >
+					<div class="row mx-auto bg-white" >
 					<div class="alert alert-warning w-100 text-center mt-4 mr-4">ARKADAŞLAR</div>
-						<div style="overflow-y: auto; height: 350px;">
+						<div style="overflow-y: auto; height: 250px;">
 						<table class="table">
 						  <thead>
 							<tr>
@@ -123,7 +123,47 @@ include("islemler.php");
 							  <td><span class="text-info">2 Yeni mesaj</span></td>
 							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
 							</tr>
-							
+							<tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr><tr>
+							  <th scope="row">1</th>
+							  <td>Mark</td>
+							  <td><span class="text-info">2 Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
+							</tr>
 							  
 						  </tbody>
 						</table>
