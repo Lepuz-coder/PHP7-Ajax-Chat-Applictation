@@ -117,19 +117,20 @@ include("islemler.php");
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">İstek Gönder</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         
-		  
+		  <input type="text" class="form-control" placeholder="Arkadaşlık isteği göndereceğinz kullanıcı adını giriniz..">
+		  <div class="sonuclar col-12"><!--İnputa her klavye tıklamasında array dbkisiler'de o verinin isminde geçenin olup olmadığını kontrol edip olanları liste şeklinde yazdıran sistemi buraya yapıcaksın--></div>
 		  
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary">Ekle</button>
       </div>
     </div>
   </div>
