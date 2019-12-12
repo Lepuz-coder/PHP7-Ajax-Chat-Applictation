@@ -47,7 +47,7 @@ include("islemler.php");
 			
 			$('#isteklertablosu').hide();
 			$('#isteklerigorbuton').click(function(){
-				$('#isteklertablosu').slideToggle(1000);
+				$('#isteklertablosu').slideToggle(700);
 			})
 		})
 		
@@ -108,12 +108,12 @@ include("islemler.php");
 						</div>
 						
 					<div class="row mx-auto bg-white" >
-					<div class="alert alert-warning w-100 text-center mt-4 mr-4">ARKADAŞLAR</div>
-						<div style="overflow-y: auto; height: 250px;">
+						<div class="alert alert-light w-100 text-center mt-4 mr-4"><div class="btn btn-block btn-success">ARKADAŞ EKLE</div></div>
+						<div style="overflow-y: auto; height: 250px; width: 100%">
 						<table class="table">
 						  <thead>
 							<tr>
-							  <th colspan="4"></th>
+							  <th colspan="4" class="text-center text-info">ARKADAŞLAR</th>
 							</tr>
 						  </thead>
 						  <tbody>
@@ -168,6 +168,7 @@ include("islemler.php");
 						  </tbody>
 						</table>
 						</div>
+						
 					</div>
 				</div>
 				
