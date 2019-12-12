@@ -89,9 +89,9 @@ include("islemler.php");
 					</div>
 						<!--Bu Bölümde Arkadaş İstekleri Görülür-->
 						<div>
-						<div class="row mx-auto" id="isteklertablosu" >
-						<div style="overflow-y: auto; max-height: 150px; width: 100%;">
-						<table class="table">
+						<div class="row mx-auto" id="isteklertablosu" style="position: absolute; z-index: 1000; background-color: white; width: 90%; " >
+						<div style="width: 100%; height: 70px; overflow-y:hidden;">
+						<table class="table pt-5">
 						  <thead>
 							<tr>
 							  <th colspan="4"></th>

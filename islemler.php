@@ -210,6 +210,13 @@ class chat{
 							</tr>';
 		$i++;
 		endforeach;
+		
+		if(empty($sonuc)):
+		$sonuc .='<tr>
+							  <td colspan="3" class="alert alert-danger text-center mt-3">Hiç İstek Yok :(</td>
+							</tr>';
+		endif;
+		
 		$sonuc .= "<script>
 				$(document).ready(function(){
 		$('.kabulet').click(function(){
