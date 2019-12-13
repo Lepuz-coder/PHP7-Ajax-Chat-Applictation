@@ -213,7 +213,7 @@ class chat{
 		
 		if(empty($sonuc)):
 		$sonuc .='<tr>
-							  <td colspan="3" class="alert alert-danger text-center mt-3">Hiç İstek Yok :(</td>
+							  <td colspan="3" class="alert alert-info text-center mt-3">Şu anlık istek bulunmamaktadır</td>
 							</tr>';
 		endif;
 		
@@ -302,62 +302,61 @@ class chat{
 		
 		$istek = $_POST['istekisim'];
 		
-		if(!in_array($istek,$this->dbkisiler)):
-		
-			echo '<div class="alert alert-danger">Böyle bir kullanıcı yok</div>';
-		
-		else:
-		
 		$istekid = array_search($istek,$this->dbkisiler);
 		
-		$sec = $db->prepare("select * from istekler where kullaniciid=?");
-		$sec->bindParam(1,$istekid,PDO::PARAM_INT);
+		if(!in_array($istek,$this->dbkisiler)):
+		
+		echo '<div class="alert alert-danger">Böyle bir üye yok!</div>';
+		
+		elseif(in_array($istekid,$this->istekler["arkadas"])):
+		
+		echo '<div class="alert alert-warning">Zaten size arkadaşlık isteği göndermiş</div>';
+		
+		elseif(in_array($istekid,$this->arkadasidler)):
+		
+		echo '<div class="alert alert-warning">Zaten Arkadaşınız!</div>';
+		
+		elseif($istekid == $_COOKIE['kullaniciid']):
+		
+		echo '<div class="alert alert-danger">Kendinizle arkadaş değil misiniz :\'(</div>';
+		
+		else:
+		
+		
+		$sec = $db->prepare("select * from istekler where kullaniciid = $istekid");
 		$sec->execute();
 		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		$istekidistekleri = $sonuc['arkadasistekid'];//2-6-8
 		
-		$istekleridizin = $sonuc['arkadasistekid'];
-		if(!empty($isteklerdizin)):
-		$arrayistekler = explode("-",$istekleridizin);
+		if(!empty($istekidistekleri)):
+		
+		$array = explode("-",$istekidistekleri);
+		
 		else:
-		$arrayistekler = array();
+		
+		$array = array();
+		
 		endif;
 		
-		if(in_array($_COOKIE['kullaniciid'],$arrayistekler)):
+		if(in_array($_COOKIE['kullaniciid'],$array)):
 		
-		echo '<div class="alert alert-danger">Zaten istek gönderilmiş</div>';
-		
-		else:
-		
-		if(in_array($istekid,$this->arkadasidler)):
-		
-		echo '<div class="alert alert-danger">Zaten sizin arkadaşınız.</div>';
+		echo '<div class="alert alert-info">Zaten istek gönderilmiş</div>';
 		
 		else:
 		
+		$array[] = $_COOKIE['kullaniciid'];
 		
-		if(in_array($istekid,$this->istekler["arkadas"])):
+		$dizin = implode("-",$array);
 		
-			echo '<div class="alert alert-warning">Size Zaten İstek Göndermiş</div>';
-		
-		else:
-		
-		
-		$arrayistekler[] = $_COOKIE['kullaniciid'];
-		
-		$isteklerdizin = implode("-",$arrayistekler);
-		
-		$upd = $db->prepare("update istekler set arkadasistekid=? where kullaniciid=?");
-		$upd->bindParam(1,$isteklerdizin,PDO::PARAM_STR);
-		$upd->bindParam(2,$istekid,PDO::PARAM_INT);
+		$upd = $db->prepare("update istekler set arkadasistekid='$dizin' where kullaniciid=$istekid");
 		$upd->execute();
 		
-		echo '<div class="alert alert-success">İstek Gönderilmiştir</div>';
+		echo '<div class="alert alert-success">İstek Gönderilmiştir!</div>';
+		
 		
 		endif;
 		
-		endif;
 		
-		endif;
 		
 		endif;
 		
