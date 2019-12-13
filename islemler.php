@@ -268,6 +268,11 @@ class chat{
 		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$kulad");
 		$upd->execute();
 		
+		//Kabul Edilen Kişinin Arkadaşlarına Eklemesi :
+		
+		
+		
+		
 	}
 	
 	function istek_reddet($db){
@@ -328,6 +333,13 @@ class chat{
 		else:
 		
 		
+		if(in_array($istekid,$this->istekler["arkadas"])):
+		
+			echo '<div class="alert alert-warning">Size Zaten İstek Göndermiş</div>';
+		
+		else:
+		
+		
 		$arrayistekler[] = $_COOKIE['kullaniciid'];
 		
 		$isteklerdizin = implode("-",$arrayistekler);
@@ -338,6 +350,8 @@ class chat{
 		$upd->execute();
 		
 		echo '<div class="alert alert-success">İstek Gönderilmiştir</div>';
+		
+		endif;
 		
 		endif;
 		
