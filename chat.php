@@ -46,8 +46,23 @@ include("islemler.php");
 			},2000)
 			
 			$('#isteklertablosu').hide();
+			
+			var flag=1;
 			$('#isteklerigorbuton').click(function(){
+				
+				flag++;
+				
 				$('#isteklertablosu').slideToggle(700);
+				
+				var sonuc = flag % 2;
+				if(sonuc == 0){
+					$('#isteklerigorbuton').html("Kapat");
+					$('#isteklerigorbuton').removeClass("btn-primary").addClass("btn-danger");
+				}else{
+					$('#isteklerigorbuton').html("İstekleri Gör");
+					$('#isteklerigorbuton').removeClass("btn-danger").addClass("btn-primary");
+				}
+				
 			})
 			
 			$('#istekgonder').click(function(){
