@@ -51,7 +51,6 @@ include("islemler.php");
 			})
 			
 			$('#istekgonder').click(function(){
-				alert("w");
 				$.ajax({
 					type:"POST",
 					url:"islemler.php?islem=istekgonder",
@@ -59,9 +58,24 @@ include("islemler.php");
 					success:function(donen){
 						$('#istekgondermeform').trigger("reset");
 						$('#isteksonuc').html(donen);
+						setTimeout(function(){
+							$('#isteksonuc').html("");
+						},3000);
 					}
 				})
 			})
+			
+			//Arama kutusu gibi her harfte o harfleri içeren kullanıcı adını yazdır :
+			
+			$('input[name="istekisim"]').on("keyup",function(){
+				
+				$.post("islemler.php?islem=dbkullaniciara",{"deger":$(this).val()},function(donen){
+					$('#isteksonuc').html(donen);
+				})
+				
+			})
+			
+			
 		})
 		
 		

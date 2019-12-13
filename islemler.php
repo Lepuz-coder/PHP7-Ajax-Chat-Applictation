@@ -133,6 +133,7 @@ class chat{
 	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
 	public $arkadasidler = array();//Giriş yapan kullanıcının arkadaşlarının id verilerini tutan bir arraydır
 	
+	//dbkisiler arkadasidler
 	function bilgileri_al($db){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
 		
@@ -156,8 +157,7 @@ class chat{
 		
 	}
 	
-	//İstekler javascript ile saniyede 1 çalışacak ve sonuçlar gitmesi gereken yere load edilecek
-	
+	//istekler
 	function istekleri_al($db,$id){
 				$sec = $db->prepare("select * from istekler where kullaniciid = $id ");
 		$sec->execute();
@@ -185,6 +185,7 @@ class chat{
 		
 	}
 	
+	//arkadasistekisimleri
 	function arkadas_istek_isimleri($db){
 		
 		foreach($this->istekler["arkadas"] as $val):
@@ -357,10 +358,43 @@ class chat{
 		
 		endif;
 		
-		
 		endif;
 		
 	}
+	
+	function db_ara($db){
+		self::bilgileri_al($db);
+		
+		$aranan = $_POST['deger'];
+		$this->dbkisiler[]="";
+		$veri = implode("-",$this->dbkisiler);//Emirhan Berkay Miray
+		
+		$pattern = '@'.$aranan.'(.*?)-@si';
+		
+		preg_match_all($pattern,$veri,$sonuc);
+		
+		if(!empty($aranan)):
+		
+		foreach($sonuc[0] as $val):
+			
+				$val = str_replace("-","",$val);
+			
+			echo '
+			<script>
+			$(document).ready(function(){
+				$(\'input[name="sonucveri"]\').click(function(){
+				$(\'input[name="istekisim"]\').val($(this).val());
+				})
+			})
+			</script>
+			<input type="button" class="btn btn-light btn-block" name="sonucveri" value="'.$val.'"></input>';
+		
+		endforeach;
+		endif;
+		
+		
+	}
+	
 }
 
 
@@ -439,6 +473,10 @@ $islem->istek_gonder($db);
 
 break;
 
+case "dbkullaniciara":
+
+$islem = new chat;
+$islem->db_ara($db);
 
 break;
 
