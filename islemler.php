@@ -156,7 +156,6 @@ class chat{
 		
 	}
 	
-	
 	//İstekler javascript ile saniyede 1 çalışacak ve sonuçlar gitmesi gereken yere load edilecek
 	
 	function istekleri_al($db,$id){
@@ -289,6 +288,65 @@ class chat{
 		$upd->execute();
 	}
 	
+	function istek_gonder($db){
+		self::bilgileri_al($db);
+		self::arkadas_istek_isimleri($db);
+		self::istekleri_al($db,$_COOKIE['kullaniciid']);
+		
+		$istek = $_POST['istekisim'];
+		
+		if(!in_array($istek,$this->dbkisiler)):
+		
+			echo '<div class="alert alert-danger">Böyle bir kullanıcı yok</div>';
+		
+		else:
+		
+		$istekid = array_search($istek,$this->dbkisiler);
+		
+		$sec = $db->prepare("select * from istekler where kullaniciid=?");
+		$sec->bindParam(1,$istekid,PDO::PARAM_INT);
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+		$istekleridizin = $sonuc['arkadasistekid'];
+		if(!empty($isteklerdizin)):
+		$arrayistekler = explode("-",$istekleridizin);
+		else:
+		$arrayistekler = array();
+		endif;
+		
+		if(in_array($_COOKIE['kullaniciid'],$arrayistekler)):
+		
+		echo '<div class="alert alert-danger">Zaten istek gönderilmiş</div>';
+		
+		else:
+		
+		if(in_array($istekid,$this->arkadasidler)):
+		
+		echo '<div class="alert alert-danger">Zaten sizin arkadaşınız.</div>';
+		
+		else:
+		
+		
+		$arrayistekler[] = $_COOKIE['kullaniciid'];
+		
+		$isteklerdizin = implode("-",$arrayistekler);
+		
+		$upd = $db->prepare("update istekler set arkadasistekid=? where kullaniciid=?");
+		$upd->bindParam(1,$isteklerdizin,PDO::PARAM_STR);
+		$upd->bindParam(2,$istekid,PDO::PARAM_INT);
+		$upd->execute();
+		
+		echo '<div class="alert alert-success">İstek Gönderilmiştir</div>';
+		
+		endif;
+		
+		endif;
+		
+		
+		endif;
+		
+	}
 }
 
 
@@ -358,6 +416,15 @@ case "arkadasistekreddet":
 
 $islem = new chat;
 $islem->istek_reddet($db);
+
+
+case "istekgonder":
+
+$islem = new chat;
+$islem->istek_gonder($db);
+
+break;
+
 
 break;
 

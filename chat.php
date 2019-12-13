@@ -49,6 +49,19 @@ include("islemler.php");
 			$('#isteklerigorbuton').click(function(){
 				$('#isteklertablosu').slideToggle(700);
 			})
+			
+			$('#istekgonder').click(function(){
+				alert("w");
+				$.ajax({
+					type:"POST",
+					url:"islemler.php?islem=istekgonder",
+					data:$('#istekgondermeform').serialize(),
+					success:function(donen){
+						$('#istekgondermeform').trigger("reset");
+						$('#isteksonuc').html(donen);
+					}
+				})
+			})
 		})
 		
 		
@@ -123,14 +136,15 @@ include("islemler.php");
         </button>
       </div>
       <div class="modal-body">
-        
-		  <input type="text" class="form-control" placeholder="Arkadaşlık isteği göndereceğinz kullanıcı adını giriniz..">
-		  <div class="sonuclar col-12"><!--İnputa her klavye tıklamasında array dbkisiler'de o verinin isminde geçenin olup olmadığını kontrol edip olanları liste şeklinde yazdıran sistemi buraya yapıcaksın--></div>
+        	<form id="istekgondermeform">
+		  <input type="text" class="form-control" placeholder="Arkadaşlık isteği göndereceğinz kullanıcı adını giriniz.." name="istekisim">
+		  <div class="col-12 mt-3" id="isteksonuc"><!--İnputa her klavye tıklamasında array dbkisiler'de o verinin isminde geçenin olup olmadığını kontrol edip olanları liste şeklinde yazdıran sistemi buraya yapıcaksın--></div>
 		  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary">Ekle</button>
+        <button type="button" class="btn btn-primary" id="istekgonder">Gönder</button>
+		  </form>
       </div>
     </div>
   </div>
