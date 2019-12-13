@@ -294,6 +294,7 @@ class chat{
 		$upd->execute();
 	}
 	
+	//!!İstek gönderdiğine tekrar gönderebiliyorsun ve istek ekstar olarak eklenmiyor sadece eskisinin yerine geçiyor düzelt!!
 	function istek_gonder($db){
 		self::bilgileri_al($db);
 		self::arkadas_istek_isimleri($db);
@@ -366,10 +367,13 @@ class chat{
 		self::bilgileri_al($db);
 		
 		$aranan = $_POST['deger'];
+		array_unshift($this->dbkisiler,"");
 		$this->dbkisiler[]="";
 		$veri = implode("-",$this->dbkisiler);//Emirhan Berkay Miray
 		
-		$pattern = '@'.$aranan.'(.*?)-@si';
+		
+		
+		$pattern = '@-'.$aranan.'(.*?)-@si';
 		
 		preg_match_all($pattern,$veri,$sonuc);
 		
@@ -378,7 +382,8 @@ class chat{
 		foreach($sonuc[0] as $val):
 			
 				$val = str_replace("-","",$val);
-			
+			$isim = $this->dbkisiler[$_COOKIE['kullaniciid']];
+			if($val !=$isim):
 			echo '
 			<script>
 			$(document).ready(function(){
@@ -388,7 +393,7 @@ class chat{
 			})
 			</script>
 			<input type="button" class="btn btn-light btn-block" name="sonucveri" value="'.$val.'"></input>';
-		
+			endif;
 		endforeach;
 		endif;
 		
