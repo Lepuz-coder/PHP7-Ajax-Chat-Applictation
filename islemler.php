@@ -488,7 +488,9 @@ class chat{
 		
 			endwhile;
 		
-		self::dosya_oku($dosyaisim,$id,$db);
+		setcookie("mesajdosyasıisim",$dosyaisim);
+		
+		@self::dosya_oku($dosyaisim,$id,$db);
 		
 	}
 	
@@ -508,7 +510,7 @@ class chat{
 		
 		$dosya = fopen("mesajlar/".$dosyaisim.".txt","r");
 		$dizin = fread($dosya,$boyut);
-		
+		fclose($dosya);
 		//Lepuz:Naber Laaan,Berkay:iyidir,Berkay:sen
 		
 		$mesajlar = explode(",",$dizin);//array("0"=>"Lepuz:Naber Laaan","1"=>"Berkay:iyidir")
@@ -524,7 +526,7 @@ class chat{
 		
 			$kimden = $kimdenvemesaj[0];
 			$mesaj = $kimdenvemesaj[1];
-		
+			if(!empty($mesaj)):
 			if($kimden == $_COOKIE['kullaniciad']):
 			
 			$text .= '<div class="w-75 alert alert-primary" style="margin-left: auto; text-align: right;">'.$mesaj.'<span style="display:inline-block; float: left; font-size:10px;  " class="mt-1">
@@ -538,13 +540,27 @@ class chat{
 						</span></div>';
 		
 			endif;
-		
+			endif;
 			endforeach;
 			endif;
 			echo $text;
 		
 	}
 
+	function dosya_yazi_ekle(){
+		
+		$dosyaisim = $_COOKIE['mesajdosyasıisim'];
+		
+		$mesaj = $_POST['mesaj'];
+		
+		$sonmesaj = $_COOKIE['kullaniciad'] . ":" . $mesaj . ",";
+		
+		$dosya = fopen("mesajlar/".$dosyaisim.".txt","a");
+		fwrite($dosya,$sonmesaj);
+		fclose($dosya);
+		
+	}
+	
 }
 
 
@@ -708,18 +724,24 @@ break;
 
 case "mesajat":
 
-setcookie("mesajid",$_POST['id']);
+setcookie("mesajidsi",$_POST['id']);
 
 break;
 
 case "mesajgoster":
-$islem = new chat;
-if(isset($_COOKIE['mesajid'])):
 
-$id = $_COOKIE['mesajid'];
+if(!empty(@$_COOKIE['mesajidsi'])):
+$islem = new chat;
+$id = $_COOKIE['mesajidsi'];
 $islem->db_mesaj_kutusu_bul($db,$id);
 
 endif;
+
+break;
+
+case "mesajgonder":
+$islem = new chat;
+$islem->dosya_yazi_ekle();
 
 break;
 

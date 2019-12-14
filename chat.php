@@ -98,6 +98,18 @@ include("islemler.php");
 				$('#mesajlarburada').load("islemler.php?islem=mesajgoster");
 			},1000);
 			
+			$('#mesajyazma').keyup(function(e){
+				
+				if(e.keyCode == 13){
+					var deger = $('#mesajyazma').val();
+					$.post("islemler.php?islem=mesajgonder",{"mesaj":deger},function(d){
+						$('#mesajyazma').val("");
+						$('#konusmalar').scrollTop($('#konusmalar')[0].scrollHeight+120);
+						
+					});
+				}
+				
+			})
 			
 		})
 		
@@ -202,7 +214,7 @@ include("islemler.php");
 					</div>
 				</div>
 				
-				<div class="col-7 mt-5 border-bottom border-light" style="overflow-y: scroll; height: 480px;">
+				<div class="col-7 mt-5 border-bottom border-light" style="overflow-y: scroll; height: 480px;" id="konusmalar">
 				<!--Mesajların Geleceği Kısım-->
 					
 					
@@ -223,7 +235,7 @@ include("islemler.php");
 				</div>
 				
 				<div class="col-7">
-				<input class="form-control w-100" style="margin-top: auto; height: 45px;" placeholder="Mesaj Giriniz">
+				<input class="form-control w-100" style="margin-top: auto; height: 45px;" placeholder="Mesaj Giriniz" id="mesajyazma">
 				</div>
 			
 			</div>
