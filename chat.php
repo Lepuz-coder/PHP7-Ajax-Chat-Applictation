@@ -96,7 +96,7 @@ include("islemler.php");
 			
 			setInterval(function(){
 				$('#mesajlarburada').load("islemler.php?islem=mesajgoster");
-			},1000);
+			},50);
 			
 			$('#mesajyazma').keyup(function(e){
 				
@@ -105,6 +105,9 @@ include("islemler.php");
 					$.post("islemler.php?islem=mesajgonder",{"mesaj":deger},function(d){
 						$('#mesajyazma').val("");
 						$('#konusmalar').scrollTop($('#konusmalar')[0].scrollHeight+120);
+						setTimeout(function(){
+							$('#konusmalar').scrollTop($('#konusmalar')[0].scrollHeight+120);
+						},100);
 						
 					});
 				}

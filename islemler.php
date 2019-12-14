@@ -518,7 +518,7 @@ class chat{
 		
 		
 		$text = "";
-		$text .= '<div class="alert alert-success w-100 text-center mx-auto">'.$karsiisim.'</div>';
+		$text .= '<div class="alert alert-success w-25 text-center mx-auto" style="position:fixed; z-index:100;">'.$karsiisim.'</div>';
 			if(!empty($dizin)):
 			foreach($mesajlar as $val):
 		
