@@ -113,6 +113,9 @@ class giris{
 				
 				setcookie('kullaniciad',$kulad);
 				setcookie("kullaniciid",$id);
+		
+			$upd = $db->prepare("update kisiler set online = 1 where id = $id");
+			$upd->execute();
 			
 				header("Refresh:0");
 		
@@ -133,8 +136,9 @@ class chat{
 	public $istekler = array("arkadas"=>array(),"mesaj"=>array());//id şeklinde veriler tutulur
 	public $arkadasistekisimleri = array();//"0"=>"Emirhan","1"=>"Miray"....
 	public $arkadasidler = array();//Giriş yapan kullanıcının arkadaşlarının id verilerini tutan bir arraydır
+	public $durum = array();//id =>0, id=>1 ... şeklinde
 	
-	//dbkisiler arkadasidler
+	//dbkisiler arkadasidler durum
 	function bilgileri_al($db){
 		//Burada bütün bilgileri sırasıyla veritabanından arraylere atıcaz.
 		
@@ -145,6 +149,8 @@ class chat{
 		
 				$this->dbkisiler[$sonuc["id"]] = $sonuc["kullaniciad"];
 				
+				$this->durum[$sonuc["id"]] = $sonuc["online"];
+		
 				if($sonuc["id"] == $_COOKIE['kullaniciid']):
 				
 					if(!empty($sonuc["arkadaslarid"])):
@@ -249,6 +255,7 @@ class chat{
 		//Kabul edilen istek sonununda posttan alınan verinin isminden id'sini bularak buna göre istekler kısmını ve kullanıcnın arkadaşlar kısmını güncelle
 		self::bilgileri_al($db);
 		self::istekleri_al($db,$_COOKIE['kullaniciid']);
+		
 		$isim = $_POST['isim'];
 		
 		$id = array_search($isim,$this->dbkisiler);
@@ -272,8 +279,23 @@ class chat{
 		
 		//Kabul Edilen Kişinin Arkadaşlarına Eklemesi :
 		
+		$sec = $db->prepare("select * from kisiler where id=$id");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
 		
+		$dizin = $sonuc["arkadaslarid"];
 		
+		if(!empty($dizin)):
+		$array = explode("-",$dizin);
+		else:
+		$array = array();
+		endif;
+		$array[] = $_COOKIE['kullaniciid'];
+		
+		$dizin = implode("-",$array);
+		
+		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$id");
+		$upd->execute();
 		
 	}
 	
@@ -431,7 +453,12 @@ break;
 
 case "csil":
 
+$id = $_COOKIE['kullaniciid'];
+$upd = $db->prepare("update kisiler set online=0 where id = $id ");
+$upd->execute();
+
 setcookie("kullaniciad","",time()-1);
+
 
 break;
 
@@ -457,12 +484,24 @@ case "dongu":
 	foreach($islemler->arkadasidler as $val):
 
 	$isim = $islemler->dbkisiler[$val];
+	if($islemler->durum[$val] == 0):
+	$arkadaslar .= '<tr>
+							  <td colspan="2"><span class="text-secondary">'.$isim.'</span></td>
+							 
+							  ';
+
+	else:
 
 	$arkadaslar .= '<tr>
-							  <td colspan="2"><a href="" class="text-danger">X </a>'.$isim.'</td>
-							  <td><span class="text-secondary">Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
-							</tr>';
+							  <td colspan="2"><span class="text-success">'.$isim.'</span></td>
+							 
+							  ';
+		
+	endif;
+	$arkadaslar .= ' <td><span class="text-primary">Yeni mesaj</span></td>
+					 <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+					</tr>';
+	
 	$i++;
 	endforeach;
 	

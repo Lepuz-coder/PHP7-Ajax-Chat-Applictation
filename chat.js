@@ -5,7 +5,7 @@ $(document).ready(function(){
 	$.post("islemler.php?islem=csil");
 	setTimeout(function(){
 		window.location.reload();
-	},1000);
+	},500);
 	
 	
 });
