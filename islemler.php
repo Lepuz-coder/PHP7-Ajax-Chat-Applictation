@@ -59,7 +59,8 @@ class kayit{
 	
 	function ekle($kullaniciad,$sifre,$db){
 		$bos = "";
-		$ekle = $db->prepare("insert into kisiler(kullaniciad,sifre,arkadaslarid) VALUES('$kullaniciad','$sifre','$bos')");
+		$zero = 0;
+		$ekle = $db->prepare("insert into kisiler(kullaniciad,sifre,arkadaslarid,online) VALUES('$kullaniciad','$sifre','$bos',$zero)");
 		$ekle->execute();
 		
 		$id = $db->lastInsertId();
