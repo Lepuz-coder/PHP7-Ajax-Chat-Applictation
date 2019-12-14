@@ -68,9 +68,6 @@ class kayit{
 		$ekle = $db->prepare("insert into istekler(kullaniciid,arkadasistekid,yenimesajid) VALUES('$id','$bos','$bos')");
 		$ekle->execute();
 		
-		$ekle = $db->prepare("insert into mesajlar(kullaniciid,mesajkutuları,yazıyorkutuları) VALUES('$id','$bos','$bos')");
-		$ekle->execute();
-		
 		setcookie("kullaniciad",$kullaniciad);
 		setcookie("kullaniciid",$id);
 		
@@ -296,6 +293,17 @@ class chat{
 		
 		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$id");
 		$upd->execute();
+
+		$idler = $kulad . "-" . $id;
+		
+		$dosyaisim = sha1(md5(mt_rand(0,10000000000)));
+		
+		touch("mesajlar/" . $dosyaisim . ".txt");
+		touch("yazıyor/" . $dosyaisim . ".txt");
+		
+		$ekle = $db->prepare("insert into mesajlar(kullaniciid,mesajkutuları,yazıyorkutuları) VALUES('$idler','$dosyaisim','$dosyaisim')");
+		$ekle->execute();
+
 		
 	}
 	
@@ -462,6 +470,38 @@ class chat{
 		
 		
 	}
+	
+	function db_mesaj_kutusu_bul($db){
+		
+		$id = $_POST['id'];
+		$kulad = $_COOKIE['kullaniciid'];
+		
+		$sec = $db->prepare("select * from mesajlar");
+		$sec->execute();
+		
+			while($sonuc = $sec->fetch(PDO::FETCH_ASSOC)):
+		
+			if(($id."-".$kulad) == $sonuc["kullaniciid"] || ($kulad."-".$id) == $sonuc["kullaniciid"]):
+		
+				$dosyaisim = $sonuc["mesajkutuları"];
+		
+			endif;
+		
+			endwhile;
+		
+		self::dosya_oku($dosyaisim);
+		
+	}
+	
+	function dosya_oku($dosyaisim){
+		
+		$dosya = fopen("mesajlar/".$dosyaisim.".txt","r");
+		$dizin = fread($dosya,filesize("mesajlar/".$dosyaisim.".txt"));
+		
+		echo $dizin;
+		
+	}
+
 }
 
 
@@ -539,7 +579,7 @@ case "dongu":
 	array_unshift($array, '          <tr>
 							  <td colspan="1"><span class="text-success">'.$isim.'</span></td>
 							 <td><span class="text-primary">Yeni mesaj</span></td>
-							 <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							 <td><button class="btn btn-primary btn-sm mesajbuton" sectıonId="'.$val.'">Mesaj</button></td>
 							 <td><button class="btn btn-outline-danger btn-sm silbuton" sectıonId="'.$val.'">X</button></td>
 							  </tr>
 							  ');
@@ -572,6 +612,13 @@ case "dongu":
 					
 					
 					});
+					
+					$(".mesajbuton").click(function(){
+						var id = $(this).attr("sectıonId");
+						$.post("islemler.php?islem=mesajat",{"id":id},function(donen){
+							alert(donen);
+						})
+					})
 					});
 					</script>';
 
@@ -614,6 +661,11 @@ case "arkadassil":
 $islem = new chat;
 $islem->arkadas_sil($db);
 
+break;
+
+case "mesajat":
+$islem = new chat;
+$islem->db_mesaj_kutusu_bul($db);
 break;
 
 endswitch;
