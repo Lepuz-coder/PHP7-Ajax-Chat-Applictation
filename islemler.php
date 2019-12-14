@@ -422,6 +422,46 @@ class chat{
 		
 	}
 	
+	function arkadas_sil($db){
+		
+		$id = $_POST['id'];
+		
+		$kulad = $_COOKIE['kullaniciid'];
+		
+		$sec = $db->prepare("select * from kisiler where id=$kulad");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+		$dizin = $sonuc["arkadaslarid"];
+		$array = explode("-",$dizin);
+		
+		$cikar = array($id);
+		
+		$array = array_diff($array,$cikar);
+		
+		$dizin = implode("-",$array);
+		
+		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$kulad");
+		$upd->execute();
+//-----------------------------------------------------------------------------------------------------------------------------------
+		$sec = $db->prepare("select * from kisiler where id=$id");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+		$dizin = $sonuc["arkadaslarid"];
+		$array = explode("-",$dizin);
+		
+		$cikar = array($kulad);
+		
+		$array = array_diff($array,$cikar);
+		
+		$dizin = implode("-",$array);
+		
+		$upd = $db->prepare("update kisiler set arkadaslarid='$dizin' where id=$id");
+		$upd->execute();
+		
+		
+	}
 }
 
 
@@ -487,18 +527,20 @@ case "dongu":
 	$isim = $islemler->dbkisiler[$val];
 	if($islemler->durum[$val] == 0):
 	 $array[] =  '		  <tr>
-							  <td colspan="2"><span class="text-secondary">'.$isim.'</span></td>
+							  <td colspan="1"><span class="text-secondary">'.$isim.'</span></td>
 							  <td><span class="text-primary">Yeni mesaj</span></td>
 							  <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							  <td><button class="btn btn-outline-danger btn-sm silbuton" sectıonId="'.$val.'">X</button></td>
 							  </tr>
 							  ';
 
 	else:
 
 	array_unshift($array, '          <tr>
-							  <td colspan="2"><span class="text-success">'.$isim.'</span></td>
+							  <td colspan="1"><span class="text-success">'.$isim.'</span></td>
 							 <td><span class="text-primary">Yeni mesaj</span></td>
 							 <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							 <td><button class="btn btn-outline-danger btn-sm silbuton" sectıonId="'.$val.'">X</button></td>
 							  </tr>
 							  ');
 		
@@ -507,12 +549,31 @@ case "dongu":
 	
 	$i++;
 	endforeach;
+	//script kodları burada olucak.
+	
 	
 	foreach($array as $val):
-
+		
 		$arkadaslar .= $val;
 
 	endforeach;
+
+	$arkadaslar .= '<script>
+					$(document).ready(function(){
+					$(".silbuton").click(function(){
+					var id = $(this).attr("sectıonId");
+					var iskelet = $(this).parent().parent();
+					$.post("islemler.php?islem=arkadassil",{"id":id},function(donen){
+						iskelet.html(\'<td class="alert alert-success" colspan="4">Arkadaşlığınızdan çıkarılmıştır</td>\');
+						setTimeout(function(){
+							iskelet.hide();
+						},2000)
+					});
+					
+					
+					});
+					});
+					</script>';
 
 	$sonuc["arkadaslar"] = $arkadaslar;
 
@@ -549,6 +610,11 @@ $islem->db_ara($db);
 
 break;
 
+case "arkadassil":
+$islem = new chat;
+$islem->arkadas_sil($db);
+
+break;
 
 endswitch;
 

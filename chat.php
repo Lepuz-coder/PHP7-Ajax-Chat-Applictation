@@ -182,7 +182,7 @@ include("islemler.php");
     </div>
   </div>
 </div></div>
-						<div style="overflow-y: auto; height: 250px; width: 100%">
+						<div style="overflow-y: auto; height: 300px; width: 100%">
 						<table class="table">
 						  <thead>
 							<tr>
