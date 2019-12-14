@@ -481,30 +481,39 @@ case "dongu":
 	
 	$arkadaslar = "";
 	$i=1;
+	$array= array();
 	foreach($islemler->arkadasidler as $val):
-
+	
 	$isim = $islemler->dbkisiler[$val];
 	if($islemler->durum[$val] == 0):
-	$arkadaslar .= '<tr>
+	 $array[] =  '		  <tr>
 							  <td colspan="2"><span class="text-secondary">'.$isim.'</span></td>
-							 
+							  <td><span class="text-primary">Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							  </tr>
 							  ';
 
 	else:
 
-	$arkadaslar .= '<tr>
+	array_unshift($array, '          <tr>
 							  <td colspan="2"><span class="text-success">'.$isim.'</span></td>
-							 
-							  ';
+							 <td><span class="text-primary">Yeni mesaj</span></td>
+							 <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							  </tr>
+							  ');
 		
 	endif;
-	$arkadaslar .= ' <td><span class="text-primary">Yeni mesaj</span></td>
-					 <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
-					</tr>';
+
 	
 	$i++;
 	endforeach;
 	
+	foreach($array as $val):
+
+		$arkadaslar .= $val;
+
+	endforeach;
+
 	$sonuc["arkadaslar"] = $arkadaslar;
 
 	echo json_encode($sonuc);
