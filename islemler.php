@@ -488,11 +488,17 @@ class chat{
 		
 			endwhile;
 		
-		self::dosya_oku($dosyaisim);
+		self::dosya_oku($dosyaisim,$id,$db);
 		
 	}
 	
-	function dosya_oku($dosyaisim){
+	function dosya_oku($dosyaisim,$id,$db){
+		
+		$sec = $db->prepare("select * from kisiler where id=$id");
+		$sec->execute();
+		$sonuc = $sec->fetch(PDO::FETCH_ASSOC);
+		
+		$karsiisim = $sonuc["kullaniciad"];
 		
 		if(filesize("mesajlar/".$dosyaisim.".txt")>0):
 		$boyut = filesize("mesajlar/".$dosyaisim.".txt");
@@ -507,7 +513,10 @@ class chat{
 		
 		$mesajlar = explode(",",$dizin);//array("0"=>"Lepuz:Naber Laaan","1"=>"Berkay:iyidir")
 		
+		
+		
 		$text = "";
+		$text .= '<div class="alert alert-success w-100 text-center mx-auto">'.$karsiisim.'</div>';
 			if(!empty($dizin)):
 			foreach($mesajlar as $val):
 		

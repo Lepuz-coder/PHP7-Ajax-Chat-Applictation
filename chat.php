@@ -204,7 +204,7 @@ include("islemler.php");
 				
 				<div class="col-7 mt-5 border-bottom border-light" style="overflow-y: scroll; height: 480px;">
 				<!--Mesajların Geleceği Kısım-->
-					<div class="alert alert-success w-100 text-center mx-auto">yazıyor..</div>
+					
 					
 					
 					<div id="mesajlarburada">
