@@ -94,6 +94,10 @@ include("islemler.php");
 				
 			})
 			
+			setInterval(function(){
+				$('#mesajlarburada').load("islemler.php?islem=mesajgoster");
+			},1000);
+			
 			
 		})
 		
@@ -203,14 +207,10 @@ include("islemler.php");
 					<div class="alert alert-success w-100 text-center mx-auto">yazıyor..</div>
 					
 					
-					<div class="w-75 alert alert-secondary ml-4 ">Merhabalar<span style="display:inline-block; float: right; font-size:10px;" class="mt-1">
-						&#128348; 12:35
-						</span></div>
+					<div id="mesajlarburada">
 					
 					
-					<div class="w-75 alert alert-primary" style="margin-left: auto; text-align: right;">AAA Merhaba<span style="display:inline-block; float: left; font-size:10px;  " class="mt-1">
-						&#128348; 12:35
-						</span></div>
+					</div>
 					
 					
 				</div>

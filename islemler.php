@@ -471,9 +471,8 @@ class chat{
 		
 	}
 	
-	function db_mesaj_kutusu_bul($db){
+	function db_mesaj_kutusu_bul($db,$id){
 		
-		$id = $_POST['id'];
 		$kulad = $_COOKIE['kullaniciid'];
 		
 		$sec = $db->prepare("select * from mesajlar");
@@ -495,10 +494,45 @@ class chat{
 	
 	function dosya_oku($dosyaisim){
 		
-		$dosya = fopen("mesajlar/".$dosyaisim.".txt","r");
-		$dizin = fread($dosya,filesize("mesajlar/".$dosyaisim.".txt"));
+		if(filesize("mesajlar/".$dosyaisim.".txt")>0):
+		$boyut = filesize("mesajlar/".$dosyaisim.".txt");
+		else:
+		$boyut = 1;
+		endif;
 		
-		echo $dizin;
+		$dosya = fopen("mesajlar/".$dosyaisim.".txt","r");
+		$dizin = fread($dosya,$boyut);
+		
+		//Lepuz:Naber Laaan,Berkay:iyidir,Berkay:sen
+		
+		$mesajlar = explode(",",$dizin);//array("0"=>"Lepuz:Naber Laaan","1"=>"Berkay:iyidir")
+		
+		$text = "";
+			if(!empty($dizin)):
+			foreach($mesajlar as $val):
+		
+			$kimdenvemesaj = explode(":",$val);//"0"=>Lepuz,"1"=>Naber Laaan
+		
+			$kimden = $kimdenvemesaj[0];
+			$mesaj = $kimdenvemesaj[1];
+		
+			if($kimden == $_COOKIE['kullaniciad']):
+			
+			$text .= '<div class="w-75 alert alert-primary" style="margin-left: auto; text-align: right;">'.$mesaj.'<span style="display:inline-block; float: left; font-size:10px;  " class="mt-1">
+						&#128348; 12:35
+						</span></div>';
+		
+			else:
+		
+			$text .= '<div class="w-75 alert alert-secondary ml-4 ">'.$mesaj.'<span style="display:inline-block; float: right; font-size:10px;" class="mt-1">
+						&#128348; 12:35
+						</span></div>';
+		
+			endif;
+		
+			endforeach;
+			endif;
+			echo $text;
 		
 	}
 
@@ -569,7 +603,7 @@ case "dongu":
 	 $array[] =  '		  <tr>
 							  <td colspan="1"><span class="text-secondary">'.$isim.'</span></td>
 							  <td><span class="text-primary">Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							  <td><button class="btn btn-primary btn-sm mesajbuton" sectıonId="'.$val.'">Mesaj</button></td>
 							  <td><button class="btn btn-outline-danger btn-sm silbuton" sectıonId="'.$val.'">X</button></td>
 							  </tr>
 							  ';
@@ -616,7 +650,7 @@ case "dongu":
 					$(".mesajbuton").click(function(){
 						var id = $(this).attr("sectıonId");
 						$.post("islemler.php?islem=mesajat",{"id":id},function(donen){
-							alert(donen);
+							$(".mesajlarburada").html(donen);
 						})
 					})
 					});
@@ -664,8 +698,20 @@ $islem->arkadas_sil($db);
 break;
 
 case "mesajat":
+
+setcookie("mesajid",$_POST['id']);
+
+break;
+
+case "mesajgoster":
 $islem = new chat;
-$islem->db_mesaj_kutusu_bul($db);
+if(isset($_COOKIE['mesajid'])):
+
+$id = $_COOKIE['mesajid'];
+$islem->db_mesaj_kutusu_bul($db,$id);
+
+endif;
+
 break;
 
 endswitch;
