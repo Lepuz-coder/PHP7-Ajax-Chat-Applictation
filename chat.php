@@ -29,21 +29,25 @@ include("islemler.php");
 	<script type="text/javascript">
 		
 		$(document).ready(function(){
-			$.post("islemler.php?islem=istekayarlarısayı",{},function(donen_veri){
+			$.post("islemler.php?islem=dongu",{},function(donen_veri){
 				
 				var veri = $.parseJSON(donen_veri);
 				$('#dropdownistek').html(veri.dropdown);
 				$('#frqcount').html(veri.sayi);
+				$('#arkadaslar').html(veri.arkadaslar);
+				
+				
 			});
 			
 			setInterval(function(){
-				$.post("islemler.php?islem=istekayarlarısayı",{},function(donen_veri){
+				$.post("islemler.php?islem=dongu",{},function(donen_veri){
 				
 				var veri = $.parseJSON(donen_veri);
 				$('#dropdownistek').html(veri.dropdown);
 				$('#frqcount').html(veri.sayi);
+				$('#arkadaslar').html(veri.arkadaslar);
 			});
-			},2000)
+			},5000)
 			
 			$('#isteklertablosu').hide();
 			
@@ -182,58 +186,11 @@ include("islemler.php");
 						<table class="table">
 						  <thead>
 							<tr>
-							  <th colspan="4" class="text-center text-info">ARKADAŞLAR</th>
+							  <th colspan="4" class="text-center text-info" >ARKADAŞLAR</th>
 							</tr>
 						  </thead>
-						  <tbody>
-							<tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr>
-							<tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr><tr>
-							  <th scope="row">1</th>
-							  <td>Mark</td>
-							  <td><span class="text-info">2 Yeni mesaj</span></td>
-							  <td><button class="btn btn-primary btn-sm">Mesaj</button></td>
-							</tr>
-							  
+						  <tbody id="arkadaslar">
+							
 						  </tbody>
 						</table>
 						</div>

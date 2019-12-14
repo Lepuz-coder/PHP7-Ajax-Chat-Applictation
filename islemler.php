@@ -434,7 +434,7 @@ setcookie("kullaniciad","",time()-1);
 
 break;
 
-case "istekayarlarısayı":
+case "dongu":
 	
 	$sonuc = array();
 
@@ -451,6 +451,22 @@ case "istekayarlarısayı":
 	
 	$sonuc["dropdown"] = $islemler->istekler_dropdown($islemler->arkadasistekisimleri);	
 	
+	$arkadaslar = "";
+	$i=1;
+	foreach($islemler->arkadasidler as $val):
+
+	$isim = $islemler->dbkisiler[$val];
+
+	$arkadaslar .= '<tr>
+							  <td colspan="2"><a href="" class="text-danger">X </a>'.$isim.'</td>
+							  <td><span class="text-secondary">Yeni mesaj</span></td>
+							  <td><button class="btn btn-primary btn-sm" sectıonId="'.$val.'">Mesaj</button></td>
+							</tr>';
+	$i++;
+	endforeach;
+	
+	$sonuc["arkadaslar"] = $arkadaslar;
+
 	echo json_encode($sonuc);
 
 
