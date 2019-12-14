@@ -127,7 +127,7 @@ include("islemler.php");
 	
 	<div class="container">
 	
-	<div class="row col-8 mx-auto border" style="margin-top: 50px; border-radius:3px; background-color:white;">
+	<div class="row col-9 mx-auto border" style="margin-top: 50px; border-radius:3px; background-color:white;">
 		
 		<div class="container-fluid">
 			

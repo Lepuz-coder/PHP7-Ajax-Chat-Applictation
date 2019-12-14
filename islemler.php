@@ -518,7 +518,7 @@ class chat{
 		
 		
 		$text = "";
-		$text .= '<div class="alert alert-success w-25 text-center mx-auto" style="position:fixed; z-index:100;">'.$karsiisim.'</div>';
+		$text .= '<div class="alert alert-success text-center mx-auto" style="position:fixed; z-index:100; width:28%;">'.$karsiisim.'</div>';
 			if(!empty($dizin)):
 			foreach($mesajlar as $val):
 		
@@ -725,6 +725,8 @@ break;
 case "mesajat":
 
 setcookie("mesajidsi",$_POST['id']);
+
+//Mesaj atıldığında yeni mesajlar kısmını da database'den silmeyi buraya ekle
 
 break;
 
