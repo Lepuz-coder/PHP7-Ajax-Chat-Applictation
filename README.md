@@ -27,7 +27,7 @@
    I wanna show you a example in one of my txt file, 
          this txt file name is : "9c5a72cd55b705391e904af342441951bd587297.txt" and it's content is :
                         
-           + Hata:Giderici,Lepuz:Naber aşkımm,Lepuz:Napıyorsun lan sen,Miray:Sanane lan,Lepuz:AAAAAA,Lepuz:o nasıl söz                              öyle,Miray:o biçim,
+           + Hata:Giderici,Lepuz:Naber aşkımm,Lepuz:Napıyorsun lan sen,Miray:Sanane lan,Lepuz:AAAAAA,Lepuz:o nasıl söz öyle,Miray:o biçim,
                       
  every txt files start with "Hata:Giderici" its means "Fix:Solving" it is necceseary because when it is showing in the page first message will be disappear because of my design.Anyway ı am using array algorimt so that ı am keeping message with (,:) shapes.Every user seperate with "," and users name-text is seperating with ":" shape.With explode array ı can take the users massege easily then it will be show in user page.
  There is a example : 
