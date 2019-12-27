@@ -17,7 +17,7 @@
    
    # HOW I DİD ?
    
-  ### 1-)WHERE YOU KEPP THE MESSAGE ?
+  ### 1-)WHERE I KEPP THE MESSAGE ?
    Before ı start ı wanna say ı am using ajax load method.For that ı need to load every second doesnt matter mesaage is arrive or not
     so that ı am keep the message in the txt files.Every friends message box txt files is different and when they send mesaage it will
     be added in their txt file.With this way ı can load txt files content in every second.İf ı would use the databse for messages it
@@ -34,7 +34,7 @@
          ![alt text](https://github.com/Lepuz-coder/chat/blob/master/example.png)
   İn every user page his message will show in right and color is blue and text comming will show in left and color is gray.To do that in txt file ı am keeping like  "Lepuz:Naber aşkımm" that because when user connect to textbox ı need to know is user own the message or the message has came to him.I can learn that when ı explode "Lepuz:Naber aşkımm" that text ı can check user name with array's first key.Simplfy algoritm is that in chatting.
   
-  ### 3-)HOW CAN YOU FİND THE RİGHT TXT FİLE ?
+  ### 3-)HOW CAN I FİND THE RİGHT TXT FİLE ?
    İt is so easy.I am keeping the txt file's name in my database.And when x user add friend y user automaticalyy new txt file is creating with random name and txt file's name added in my "mesajlar" table.Also user's id will added table's 'kullaniciid' column like '2-3' there is a example of my table : 
    
   ![alt text](https://github.com/Lepuz-coder/chat/blob/master/example2.png)
@@ -44,7 +44,7 @@
    ### 4-)FRİEND ? 
    Friends requests is keeping in "istekler" table and user's friends list in kisiler table's 'arkadaslarid' column.
    
-   ### 5-)HOW CAN I USE THİS APP?
+   ### 5-)HOW CAN YOU USE THİS APP?
    First of all dont forget the add kisiler,istekler,mesajlar table in your database and switch the dbname in php files.I mean if you decided the keep the table in 'yourdbname' named database change the codes in "islemler.php" :
    
             $db = new PDO("mysql::host=localhost;dbname=chatting;charset=utf8","root","");
